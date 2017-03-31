@@ -1,0 +1,6 @@
+{
+  "/api": "/",
+  "/posts": "/api/posts",
+  "/comments": "/api/comments",
+  "/profile": "/api/profile"
+}

@@ -1,0 +1,13 @@
+{
+  "todos": [
+    {
+      "title": "made with love",
+      "completed": "true",
+      "createdAt": "2017-03-31T07:23:00.004Z",
+      "id": 1
+    }
+  ],
+  "maxId": {
+    "todos": 1
+  }
+}
