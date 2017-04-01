@@ -33,6 +33,21 @@ export function readTodoAPI () {
   }
 }
 
+export function editTodo (index, todo) {
+  return {
+    type: ActionTypes.EDIT_TODO,
+    index,
+    todo
+  }
+}
+
+export function editTodoAPI (index, todo, id) {
+  return (dispatch) => {
+    axios.patch(`http://localhost:8080/todos/${id}`, {title: todo})
+    .then( response => { dispatch(editTodo(index, todo))})
+  }
+}
+
 export function deleteTodo (index) {
   return {
     type: ActionTypes.DELETE_TODO,
@@ -47,16 +62,63 @@ export function deleteTodoAPI (id, index) {
   }
 }
 
-export function completeTodo (index) {
+export function completeTodo (index, status) {
   return {
     type: ActionTypes.COMPLETE_TODO,
-    index
+    index,
+    status
   }
 }
 
-export function completeTodoAPI (id, index) {
+export function completeTodoAPI (id, index, status) {
   return (dispatch) => {
-    axios.patch(`http://localhost:8080/todos/${id}`, {completed: "true"})
-    .then( response => { dispatch(completeTodo(index)) })
+    axios.patch(`http://localhost:8080/todos/${id}`, {completed: status})
+    .then( response => { dispatch(completeTodo(index, status)) })
+  }
+}
+
+export function clearComplete () {
+  return {
+    type: ActionTypes.CLEAR_COMPLETED
+  }
+}
+
+export function clearCompleteAPI (todos) {
+  return (dispatch) => {
+    axios.all(todos.map( todo => {
+      return axios.delete(`http://localhost:8080/todos/${todo.id}`)
+      .then( response => {} )
+    }))
+    .then( all => { dispatch(clearComplete()) })
+  }
+}
+
+export function completeAll () {
+  return {
+    type: ActionTypes.COMPLETE_ALL
+  }
+}
+
+export function completeAllAPI (todos) {
+  return (dispatch) => {
+    axios.all(todos.map( todo => {
+      return axios.patch(`http://localhost:8080/todos/${todo.id}`, {completed: "true"})
+      .then( response => {} )
+    }))
+    .then( all => {dispatch(completeAll()) })
+  }
+}
+
+export function sortTodo (payload) {
+  return {
+    type: ActionTypes.SORT_TODO,
+    payload
+  }
+}
+
+export function sortTodoAPI (sort) {
+  return (dispatch) => {
+    axios.get(`http://localhost:8080/todos?_sort=createdAt&_order=${sort}`)
+    .then( response => { dispatch(sortTodo(response.data)) })
   }
 }

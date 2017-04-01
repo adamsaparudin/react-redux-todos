@@ -28,12 +28,15 @@ class TodoTextInput extends React.Component {
 
   render () {
     return (
-      <form onSubmit={this.submitTodo.bind(this)}>
-        <input
-          onChange={this.handleTodoInputChange.bind(this)}
-          value={this.state.todoInput}
-          placeholder="Plan work..."/>
-      </form>
+      <header className="header">
+        <form onSubmit={this.submitTodo.bind(this)}>
+          <input
+            className="new-todo"
+            onChange={this.handleTodoInputChange.bind(this)}
+            value={this.state.todoInput}
+            placeholder="Plan work..."/>
+        </form>
+      </header>
     )
   }
 }
