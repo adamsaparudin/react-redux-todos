@@ -91,6 +91,10 @@ class TodoList extends React.Component {
           {
             this.props.Todos
             .filter( todo => {
+              let regPattern = new RegExp(this.props.TodoInput, 'gi')
+              return regPattern.test(todo.title)
+            })
+            .filter( todo => {
               return this.state.show === ''
               ?
                 todo
@@ -139,7 +143,7 @@ class TodoList extends React.Component {
             </li>
           </ul>
 
-          <button onClick={() => this.clearComplete() } className="clear-completed">Clear </button>
+          <button onClick={() => this.clearComplete() } className="clear-completed">Clear Complete</button>
           <button onClick={() => this.props.completeAllAPI(this.props.Todos) } className="clear-completed">Complete All </button>
           <button onClick={() => this.sortTodo() } className="clear-completed">Sort By Date</button>
         </footer>
@@ -150,7 +154,8 @@ class TodoList extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    Todos: state.Todos
+    Todos: state.Todos,
+    TodoInput: state.TodoInput
   }
 }
 

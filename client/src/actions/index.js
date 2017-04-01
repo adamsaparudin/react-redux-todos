@@ -122,3 +122,10 @@ export function sortTodoAPI (sort) {
     .then( response => { dispatch(sortTodo(response.data)) })
   }
 }
+
+export function changeTodoTextInput (text) {
+  return {
+    type: ActionTypes.TODO_INPUT,
+    text
+  }
+}

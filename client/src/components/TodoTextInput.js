@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { createTodoAPI } from '../actions'
+import { createTodoAPI, changeTodoTextInput } from '../actions'
 
 class TodoTextInput extends React.Component {
   constructor (props) {
@@ -16,6 +16,7 @@ class TodoTextInput extends React.Component {
     this.setState({
       todoInput: event.target.value
     })
+    this.props.changeTodoTextInput(event.target.value)
   }
 
   submitTodo (e) {
@@ -24,6 +25,7 @@ class TodoTextInput extends React.Component {
     this.setState({
       todoInput: ''
     })
+    this.props.changeTodoTextInput('')
   }
 
   render () {
@@ -42,7 +44,7 @@ class TodoTextInput extends React.Component {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ createTodoAPI: createTodoAPI }, dispatch)
+  return bindActionCreators({ createTodoAPI, changeTodoTextInput }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(TodoTextInput)
